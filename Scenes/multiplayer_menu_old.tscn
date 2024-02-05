@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bivv1h61kkjxy"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplayerMenu.cs" id="1_f02me"]
+
+[node name="MultiplayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f02me")
+
+[node name="NickContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NicknameLabel" type="Label" parent="NickContainer"]
+layout_mode = 2
+
+[node name="NicknameLine" type="LineEdit" parent="NickContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 60.0
+offset_right = 48.0
+offset_bottom = 100.0
+
+[node name="HostButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+
+[node name="JoinButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+
+[node name="StartGameButton" type="Button" parent="ButtonContainer"]
+layout_mode = 2

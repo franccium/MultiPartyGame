@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2lxy4etsuvqx"]
+
+[ext_resource type="Script" path="res://Scripts/TriviaQuizRoom.cs" id="1_w0pef"]
+[ext_resource type="PackedScene" uid="uid://cu6l41n1twsda" path="res://Scenes/button_3d.tscn" id="2_4pds8"]
+
+[node name="TriviaQuizRoom" type="Node3D"]
+script = ExtResource("1_w0pef")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3196, 0.278992, 15.4632)
+use_collision = true
+size = Vector3(44.812, 0.320679, 33.1941)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.98023e-08, -1, 0, 1, 2.98023e-08, -12.3196, 6.82653, -1.43394)
+use_collision = true
+size = Vector3(44.812, 0.320679, 17.2889)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 2.98023e-08, 0, 2.98023e-08, -1, -1, -4.37114e-08, -1.3027e-15, -34.8391, 6.82653, 15.1408)
+use_collision = true
+size = Vector3(33.6936, 0.320679, 17.2889)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 2.98023e-08, 0, 2.98023e-08, -1, -1, -4.37114e-08, -1.3027e-15, 10.248, 6.82653, 15.1408)
+use_collision = true
+size = Vector3(33.6936, 0.320679, 17.2889)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.551544, 0.834146, 0, -0.834146, 0.551544, -11, 13.1524, 9.04927)
+light_color = Color(0, 0.713726, 0.666667, 1)
+light_energy = 4.394
+light_volumetric_fog_energy = 2.131
+light_specular = 4.54
+spot_range = 16.211
+spot_attenuation = 0.594603
+spot_angle = 75.91
+spot_angle_attenuation = 0.0693482
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8298, 12.5292, 0)
+text = "The Question:"
+font_size = 200
+
+[node name="Spawnpoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9677, 8.00648, 10.9269)
+
+[node name="Answer1" type="Node3D" parent="."]
+
+[node name="AnswerLabel1" type="Label3D" parent="Answer1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -34.5349, 12.2148, 31.3805)
+text = "dsgasg"
+font_size = 150
+horizontal_alignment = 0
+
+[node name="GoodAnswerButton1" parent="Answer1" instance=ExtResource("2_4pds8")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -34.7097, 12.5126, -0.624762)
+
+[node name="Answer2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.80045, 0)
+
+[node name="AnswerLabel2" type="Label3D" parent="Answer2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -34.5349, 12.2148, 31.4268)
+text = "dsgasg"
+font_size = 150
+horizontal_alignment = 0
+
+[node name="GoodAnswerButton2" parent="Answer2" instance=ExtResource("2_4pds8")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -34.7097, 12.4677, -0.828122)
+
+[node name="Answer3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.8715, 0)
+
+[node name="AnswerLabel3" type="Label3D" parent="Answer3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -34.5349, 12.2148, 31.5146)
+text = "dsgasg"
+font_size = 150
+horizontal_alignment = 0
+
+[node name="GoodAnswerButton3" parent="Answer3" instance=ExtResource("2_4pds8")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -34.7097, 12.4716, -0.739463)
+
+[node name="Answer4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.14196, 0)
+
+[node name="AnswerLabel4" type="Label3D" parent="Answer4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -34.5349, 12.2148, 31.3892)
+text = "dsgasg"
+font_size = 150
+horizontal_alignment = 0
+
+[node name="GoodAnswerButton4" parent="Answer4" instance=ExtResource("2_4pds8")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -34.7097, 12.4279, -0.866793)
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -34.5879, 14.5467, 16.9942)
+text = "The Answers:"
+font_size = 200
+
+[node name="PlayerListLabel" type="Label3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 10.0355, 14.5467, 16.9942)
+text = "Scores:"
+font_size = 200
+
+[node name="QuestionLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0526, 7.91428, 0.0396328)
+font_size = 300
+
+[node name="AuthorLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.72214, 12.6137, 0.0396328)
+font_size = 300
+
+[node name="NextTriviaButton" parent="." instance=ExtResource("2_4pds8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1943, 12.7107, 0)

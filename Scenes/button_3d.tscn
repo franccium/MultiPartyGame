@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu6l41n1twsda"]
+
+[ext_resource type="Material" uid="uid://bhny0lt52s0q" path="res://Materials/button_material.tres" id="1_qpo3k"]
+[ext_resource type="Script" path="res://Scripts/Button3D.cs" id="1_wffn1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xcgoo"]
+material = ExtResource("1_qpo3k")
+size = Vector3(6, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m635d"]
+size = Vector3(6, 2, 1)
+
+[node name="Button3D" type="StaticBody3D"]
+script = ExtResource("1_wffn1")
+
+[node name="ButtonBox" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xcgoo")
+
+[node name="ButtonCollisionBox" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_m635d")
+
+[node name="ButtonLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.544985)
+text = "Button"
+font_size = 150

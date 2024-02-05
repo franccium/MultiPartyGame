@@ -1,0 +1,26 @@
+w menu:
+menu ma byc w 3d, takie jak w vr
+losowo generowany nick
+
+
+
+
+TRYBY:
+
+- własna trivia - każdy pisze pytanie i odpowiedź do niego, potem każdy musi odpowiedzieć na pytania innych, 
+na koncu ranking kto ile dobrze miał
+
+
+- kto by coś / kto coś - najpierw pisze się coś typu "kto by pierwszy kliknął alt f4 po nieudanej 
+akcji w lolu" i trzeba przyporządkować tabliczkę z nazwą gracza, na koniec jakoś pokazuje odpowiedzi czy coś
+
+
+- kalambury, ale każdy kto rysuje pisze własne hasło które chce narysować
+(w 3d moze byc po prostu tablica przed graczem na której może rysować, ale może jakoś 
+dałoby się zrobić potem też tryb stawiania modeli 3d, ale to już advanced)
+
+
+- coś typu bombparty
+
+
+- aimbooster competitive ze sobą

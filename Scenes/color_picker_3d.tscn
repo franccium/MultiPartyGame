@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://h5nny385n5k6"]
+
+[ext_resource type="Script" path="res://Scripts/ColorPicker3D.cs" id="1_dcxvw"]
+
+[node name="ColorPicker3D" type="Node3D"]
+script = ExtResource("1_dcxvw")
+
+[node name="ColorPickerLabel" type="Label3D" parent="."]

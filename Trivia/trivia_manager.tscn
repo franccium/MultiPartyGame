@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wgax1ddqqg75"]
+
+[ext_resource type="Script" path="res://Trivia/TriviaManager.cs" id="1_wm15j"]
+
+[node name="TriviaManager" type="Node"]
+script = ExtResource("1_wm15j")

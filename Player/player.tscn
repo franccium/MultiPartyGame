@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=3 uid="uid://c1ihho4imnswr"]
+
+[ext_resource type="Script" path="res://Player/Player.cs" id="1_8x3o4"]
+[ext_resource type="Material" uid="uid://bhibwlirj0v0w" path="res://Player/player_material.tres" id="2_5om7h"]
+[ext_resource type="Script" path="res://Player/Crosshair.cs" id="2_wm5vi"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gfgxg"]
+material = ExtResource("2_5om7h")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5cpt6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qj6o5"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kvwot"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4nfs3"]
+material = SubResource("StandardMaterial3D_kvwot")
+radius = 0.015
+height = 0.03
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v66l1"]
+properties/0/path = NodePath(".:_syncedPosition")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:_syncedRotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Head/Camera3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" groups=["Players"]]
+script = ExtResource("1_8x3o4")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_gfgxg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5cpt6")
+
+[node name="Head" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.398209, -0.417618)
+
+[node name="CrosshairRaycast" type="RayCast3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.00623193, -0.109268)
+
+[node name="Arms" type="Node3D" parent="Head"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Head/Arms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.370997, 0.23273, -0.67926)
+size = Vector3(0.0839844, 0.106445, 0.414185)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Head/Arms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.309598, 0.23273, -0.67926)
+size = Vector3(0.0839844, 0.106445, 0.414185)
+
+[node name="Eyes" type="Node3D" parent="Head"]
+
+[node name="Eye1" type="MeshInstance3D" parent="Head/Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0988316, 0.574033, -0.478906)
+mesh = SubResource("SphereMesh_qj6o5")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Eyes/Eye1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0113259, 0, -0.0531036)
+mesh = SubResource("SphereMesh_4nfs3")
+
+[node name="Eye2" type="MeshInstance3D" parent="Head/Eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0940164, 0.574033, -0.478906)
+mesh = SubResource("SphereMesh_qj6o5")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Head/Eyes/Eye2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.016709, 0, -0.0531036)
+mesh = SubResource("SphereMesh_4nfs3")
+skeleton = NodePath("../../Eye1")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.1
+delta_interval = 0.1
+replication_config = SubResource("SceneReplicationConfig_v66l1")
+
+[node name="PlayerNameLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45717, 0)
+billboard = 1
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Crosshair" type="CenterContainer" parent="GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_wm5vi")

@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4gsbgjnex37j"]
+
+[ext_resource type="Script" path="res://Scenes/SettingsRoom.cs" id="1_gjm76"]
+[ext_resource type="PackedScene" uid="uid://cu6l41n1twsda" path="res://Scenes/button_3d.tscn" id="2_rg5rk"]
+[ext_resource type="PackedScene" uid="uid://h5nny385n5k6" path="res://Scenes/color_picker_3d.tscn" id="3_v0iwt"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gyfg3"]
+viewport_path = NodePath("ColorPickerViewport")
+
+[node name="SettingsWorld" type="Node3D"]
+script = ExtResource("1_gjm76")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(25, 1, 25)
+
+[node name="ChangeColorButton" parent="." instance=ExtResource("2_rg5rk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.37155, -13.653)
+
+[node name="ColorPicker3D" parent="ChangeColorButton" instance=ExtResource("3_v0iwt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5852, 0)
+
+[node name="ChangeHatButton" parent="." instance=ExtResource("2_rg5rk")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 10.9146, 3.37155, -9.76895)
+
+[node name="Spawnpoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.83131, 0)
+
+[node name="ColorPickerSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.97627, -15.0794)
+billboard = 1
+texture = SubResource("ViewportTexture_gyfg3")
+
+[node name="ColorPickerViewport" type="SubViewport" parent="."]
+size = Vector2i(300, 512)
+
+[node name="ColorPicker" type="ColorPicker" parent="ColorPickerViewport"]
+offset_right = 298.0
+offset_bottom = 576.0

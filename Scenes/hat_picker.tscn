@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckt0h6s8cf5s3"]
+
+[ext_resource type="Script" path="res://Scripts/HatPicker.cs" id="1_bugab"]
+
+[node name="HatPicker" type="Node3D"]
+script = ExtResource("1_bugab")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(5, 10, 0.5)

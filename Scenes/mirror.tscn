@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://drvd0ln6dxdp5"]
+
+[ext_resource type="Script" path="res://Scripts/Mirror.cs" id="1_tr1m0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_c318e"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Mirror" type="Node3D"]
+script = ExtResource("1_tr1m0")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = SubResource("ViewportTexture_c318e")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 0, 0, 0.286178)

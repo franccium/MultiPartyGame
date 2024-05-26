@@ -10,6 +10,7 @@ public partial class Player : CharacterBody3D
         Sprint,
         Jump,
         InAir,
+        InAnimation,
     }
     private States _currentState = States.Stand;
 
@@ -31,10 +32,11 @@ public partial class Player : CharacterBody3D
 
     private MultiplayerSynchronizer _multiplayerSynchronizer;
     private bool _hasAuthority;
-    public int PlayerId { get; set; }
     private Vector3 _syncedPosition;
     private Vector3 _syncedRotation;
-    public string PlayerName { get; set; }
+
+    public int PlayerId { get; set; } // id with which the player connected to the server
+    public string PlayerName { get; set; } // player's personal nickname
     private Label3D _playerNameLabel;
     public int RoomSpawnpointIndex { get; set; } = 1;
     public int Score { get; set; } = 0;
@@ -143,6 +145,12 @@ public partial class Player : CharacterBody3D
             }
         }
 
+        if (Input.IsActionJustPressed("t"))
+        {
+            _currentState = States.InAnimation;
+            PlayAnimation(_testBindedAnimation);
+        }
+
         if (Input.IsActionJustPressed("escape"))
         {
             GameController.Instance.GoToSettings();
@@ -193,26 +201,57 @@ public partial class Player : CharacterBody3D
         if (!_crosshairRayCast.IsColliding()) return;
 
         GodotObject collider = _crosshairRayCast.GetCollider();
+
+        bool isLmbJustPressed = Input.IsActionJustPressed("lmb");
+        bool isEJustPressed = Input.IsActionJustPressed("e");
+        bool isEHeld = Input.IsActionPressed("e");
+
         if (collider is IInteractable interactable)
         {
             _crosshair.Modulate = new Color(0, 1, 0);
             interactable.OnHover();
-            if (Input.IsActionJustPressed("lmb"))
+            if (isLmbJustPressed)
                 interactable.OnInteract();
         }
         else
             _crosshair.Modulate = new Color(1, 1, 1);
 
-        if (collider is Player other_player)
+        if (collider is IPushable pushable && isEJustPressed)
         {
-            if (Input.IsActionJustPressed("lmb"))
-            {
-                Vector3 pushDirection = (other_player.GlobalPosition - GlobalPosition).Normalized();
-                Vector3 newPlayerPosition = GlobalPosition - pushDirection * 3f;
-                //other_player.ForceSynchronisePosition(newPlayerPosition);
-                RpcUpdatePlayerPosition(other_player.PlayerId, newPlayerPosition);
-                //RpcId(MultiplayerMenu.HOST_ID, "RpcUpdatePlayerPosition", other_player.PlayerId, newPlayerPosition);
-            }
+            Node3D colliderNode = collider as Node3D;
+            Vector3 pushDirection = (colliderNode.GlobalPosition - GlobalPosition).Normalized();
+            pushable.OnPush(pushDirection);
+        }
+
+        if (collider is IHoldable holdable && isEHeld)
+        {
+            holdable.OnHold(GlobalPosition);
+        }
+
+
+        if (collider is Player other_player && isLmbJustPressed)
+        {
+            Vector3 pushDirection = (other_player.GlobalPosition - GlobalPosition).Normalized();
+            Vector3 newPlayerPosition = GlobalPosition - pushDirection * 3f;
+            //other_player.ForceSynchronisePosition(newPlayerPosition);
+            RpcUpdatePlayerPosition(other_player.PlayerId, newPlayerPosition);
+            //RpcId(MultiplayerMenu.HOST_ID, "RpcUpdatePlayerPosition", other_player.PlayerId, newPlayerPosition);
+        }
+
+        //Image image = new Image();
+        //image.GetPixel(0, 0);
+        if (collider is ColorPicker3D colorPicker && isLmbJustPressed)
+        {
+            Vector3 collisionPoint = _crosshairRayCast.GetCollisionPoint();
+            Vector3 collisionPointLocal = colorPicker.ToLocal(collisionPoint) / 2f;
+            colorPicker.PickColorAtPosition(collisionPointLocal);
+            /*
+            Vector3 collidePosition = _crosshairRayCast.GetCollisionPoint();
+            GD.Print("viewport collide");
+            Image image = viewport.GetTexture().GetImage();
+            Color color = image.GetPixel((int)collidePosition.X, (int)collidePosition.Y);
+            GD.Print("picked color: " + color);
+            */
         }
     }
 
@@ -226,6 +265,11 @@ public partial class Player : CharacterBody3D
     }
 
     public void SetCanMove(bool can_move) => _canMove = can_move;
+
+    public void GetLookDirection(out Vector3 lookDirection)
+    {
+        lookDirection = _camera.GlobalTransform.Basis.Z;
+    }
 
 
     #region MULTIPLAYER
@@ -243,6 +287,54 @@ public partial class Player : CharacterBody3D
 
         _syncedPosition = position;
         GlobalPosition = position;
+    }
+
+    #endregion
+
+
+    #region ANIMATION
+
+    private AnimationPlayer _animationPlayer;
+    private string _currentAnimation;
+    private string _testBindedAnimation = "eye_roll";
+
+    public void PlayAnimation(string animation_name)
+    {
+        if (_animationPlayer == null)
+            _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
+        _animationPlayer.Play(animation_name);
+    }
+
+    #endregion
+
+
+    #region GARMENTS
+
+    public enum PlayerHats { None, Knight, Dumb }
+
+    public void SetPlayerHat(PlayerHats hat)
+    {
+        Rpc("RpcSetPlayerHat", (int)hat);
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+    public void RpcSetPlayerHat(int hat)
+    {
+        PlayerHats playerHat = (PlayerHats)hat;
+        MeshInstance3D prevHat = GetNodeOrNull<MeshInstance3D>("Head/HatMarker/Hat");
+        if (playerHat == PlayerHats.None || prevHat != null)
+        {
+            prevHat.QueueFree();
+            return;
+        }
+
+        PackedScene hatScene = ResourceLoader.Load<PackedScene>("res://Models/Hats/" + playerHat.ToString() + ".glb");
+        MeshInstance3D hatMesh = hatScene.Instantiate() as MeshInstance3D;
+        GetNode<Node3D>("Head/HatMarker").AddChild(hatMesh);
+        hatMesh.Position = new Vector3(0, 0, 0);
+
+        GD.Print("Hat set to " + hat.ToString());
     }
 
     #endregion

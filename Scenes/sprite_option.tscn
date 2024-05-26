@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cky6g1afc4bln"]
+
+[ext_resource type="Script" path="res://Scripts/SpriteOption.cs" id="1_nxdbs"]
+[ext_resource type="Texture2D" uid="uid://ct4rkc78y8qi7" path="res://icon.svg" id="2_vnyij"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p6bn7"]
+
+[node name="SpriteOption" type="StaticBody3D"]
+script = ExtResource("1_nxdbs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_p6bn7")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("2_vnyij")

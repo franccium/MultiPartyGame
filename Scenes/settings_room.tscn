@@ -3,9 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/SettingsRoom.cs" id="1_gjm76"]
 [ext_resource type="PackedScene" uid="uid://cu6l41n1twsda" path="res://Scenes/button_3d.tscn" id="2_rg5rk"]
 [ext_resource type="PackedScene" uid="uid://h5nny385n5k6" path="res://Scenes/color_picker_3d.tscn" id="3_v0iwt"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_gyfg3"]
-viewport_path = NodePath("ColorPickerViewport")
+[ext_resource type="PackedScene" uid="uid://drvd0ln6dxdp5" path="res://Scenes/mirror.tscn" id="4_oqwif"]
 
 [node name="SettingsWorld" type="Node3D"]
 script = ExtResource("1_gjm76")
@@ -18,7 +16,7 @@ size = Vector3(25, 1, 25)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.37155, -13.653)
 
 [node name="ColorPicker3D" parent="ChangeColorButton" instance=ExtResource("3_v0iwt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5852, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84803, -0.78324, 0)
 
 [node name="ChangeHatButton" parent="." instance=ExtResource("2_rg5rk")]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 10.9146, 3.37155, -9.76895)
@@ -26,14 +24,12 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 [node name="Spawnpoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.83131, 0)
 
-[node name="ColorPickerSprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.97627, -15.0794)
-billboard = 1
-texture = SubResource("ViewportTexture_gyfg3")
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000732422, 7.98531, -15.5938)
+use_collision = true
+size = Vector3(2.99463, 5.03748, 1)
 
-[node name="ColorPickerViewport" type="SubViewport" parent="."]
-size = Vector2i(300, 512)
+[node name="Mirror" parent="." instance=ExtResource("4_oqwif")]
+transform = Transform3D(0.346936, 0, -0.937889, 0, 1, 0, 0.937889, 0, 0.346936, 15.0988, 5.79386, -0.601729)
 
-[node name="ColorPicker" type="ColorPicker" parent="ColorPickerViewport"]
-offset_right = 298.0
-offset_bottom = 576.0
+[node name="HatDisplay" type="CSGBox3D" parent="."]

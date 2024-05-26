@@ -130,6 +130,18 @@ public partial class TriviaQuizRoom : Node3D
     {
         // dont need to check authority cause only authority can interact with IInteractable
         _chosenAnswerIndex = i;
+
+        for (int j = 0; j < _correctAnswerButtons.Length; j++)
+        {
+            if (j == i)
+            {
+                _correctAnswerButtons[j].SetButtonColor(Colors.Green);
+            }
+            else
+            {
+                _correctAnswerButtons[j].SetButtonColor(Colors.Red);
+            }
+        }
     }
 
     private void AssessAnswers()

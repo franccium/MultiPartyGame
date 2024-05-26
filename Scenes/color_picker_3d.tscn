@@ -1,8 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://h5nny385n5k6"]
+[gd_scene load_steps=5 format=3 uid="uid://h5nny385n5k6"]
 
 [ext_resource type="Script" path="res://Scripts/ColorPicker3D.cs" id="1_dcxvw"]
 
-[node name="ColorPicker3D" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_blne7"]
+size = Vector3(2.77887, 5.10406, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dml0t"]
+viewport_path = NodePath("ColorPickerBox/SubViewport")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7810x"]
+
+[node name="ColorPicker3D" type="StaticBody3D"]
 script = ExtResource("1_dcxvw")
 
 [node name="ColorPickerLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.224088, 5.92944, -0.000361443)
+text = "Pick a Color!"
+font_size = 120
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.167328, 2.58085, 0)
+shape = SubResource("BoxShape3D_blne7")
+
+[node name="ColorPickerBox" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.167137, 2.58831, 0)
+size = Vector3(2.77831, 5.11899, 1)
+
+[node name="ColorPickerSprite" type="Sprite3D" parent="ColorPickerBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00203848, -0.00768399, 0.520922)
+texture = SubResource("ViewportTexture_dml0t")
+
+[node name="SubViewport" type="SubViewport" parent="ColorPickerBox"]
+size = Vector2i(300, 512)
+
+[node name="ColorPicker" type="ColorPicker" parent="ColorPickerBox/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PickedColorIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.71719, 4.03611, 0)
+mesh = SubResource("PlaneMesh_7810x")
